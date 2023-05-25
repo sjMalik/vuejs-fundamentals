@@ -15,7 +15,11 @@
 12. [Form Input Binding](#form-input-binding)
 13. [Lifecycle Hooks](#lifecycle-hooks)
 14. [Watchers](#watchers)
-15. [v-slot]
+15. [v-slot](#v-slot)
+16. [Passing Props(Parent -> Child)](#passsing-props-passing-data-from-parent-to-child)
+17. [Listening to events(Child -> Parent)](#listening-to-events-communicating-back-up-to-the-parent)
+18. [Vuex and State Management](#vuex-and-state-management)
+19. [Vue Router](#vue-router)
 
 ## What is VueJS?
 Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative and component-based programming model that helps you efficiently develop user interfaces, be they simple or complex.
@@ -940,4 +944,26 @@ export default new Vuex.Store({
     getters,
     actions
 })
+```
+## Vue Router
+```
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+const Home = {template: '<div>Home</div>'};
+const About = {template: '<div>About</div>'};
+
+Vue.use(VueRouter);
+
+const routes = [
+    {path: '/', component: Home},
+    {path: '/about', component: About},
+];
+
+const router = new VueRouter({
+    mode: 'history',
+    routes,
+});
+
+export default router;
 ```
