@@ -47,6 +47,8 @@ The above example demonstrates the two core features of Vue:
 
 * Reactivity: Vue automatically tracks JavaScript state changes and efficiently updates the DOM when changes happen.
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Single File Component (SFC)
 In most build-tool-enabled Vue projects, we author Vue components using an HTML-like file format called Single-File Component (also known as *.vue files, abbreviated as SFC). A Vue SFC, as the name suggests, encapsulates the component's logic (JavaScript), template (HTML), and styles (CSS) in a single file
 ```
@@ -71,6 +73,8 @@ In most build-tool-enabled Vue projects, we author Vue components using an HTML-
     }
 </style>
 ```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## API Styles
 Vue component can be authored in two different API styles: Options API and Composition API
@@ -120,6 +124,8 @@ const app = createApp({
 })
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## The Root Component
 The object we are passing into createApp is in fact a component. Every app requires a "root component" that can contain other components as its children.
 
@@ -131,6 +137,7 @@ import App from './App.vue'
 
 const app = createApp(App)
 ```
+
 ### Application Component Tree
 ```
 App (root component)
@@ -142,6 +149,8 @@ App (root component)
    ├─ TodoClearButton
    └─ TodoStatistics
 ```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Mounting the App​
 An application instance won't render anything until its .mount() method is called. It expects a "container" argument, which can either be an actual DOM element or a selector string:
@@ -173,6 +182,8 @@ export default {
 }
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Declaring Reactive State
 With the Options API, we use the data option to declare reactive state of a component. The option value should be a function that returns an object. Vue will call the function when creating a new component instance, and wrap the returned object in its reactivity system. Any top-level properties of this object are proxied on the component instance (this in methods and lifecycle hooks):
 
@@ -196,6 +207,8 @@ export default {
 }
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Declaring Methods
 To add methods to a component instance we use the methods option. This should be an object containing the desired methods.
 
@@ -212,6 +225,9 @@ In-template expressions are very convenient, but they are meant for simple opera
     }
   }
   ```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ### Displaying Filtered/Sorted Results​
 Sometimes we want to display a filtered or sorted version of an array without actually mutating or resetting the original data. In this case, you can create a computed property that returns the filtered or sorted array.
 
@@ -230,11 +246,15 @@ computed: {
 <li v-for="n in evenNumbers">{{ n }}</li>
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ### Computed Caching vs. Methods
 Instead of a computed property, we can define the same function as a method. For the end result, the two approaches are indeed exactly the same. However, the difference is that computed properties are cached based on their reactive dependencies. A computed property will only re-evaluate when some of its reactive dependencies have changed.
 In comparison, a method invocation will always run the function whenever a re-render happens.
 
 Why do we need caching? Imagine we have an expensive computed property list, which requires looping through a huge array and doing a lot of computations. Then we may have other computed properties that in turn depend on list. Without caching, we would be executing list’s getter many more times than necessary! In cases where you do not want caching, use a method call instead.
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ### Writable Computed
 Computed properties are by default getter-only. If you attempt to assign a new value to a computed property, you will receive a runtime warning. In the rare cases where you need a "writable" computed property, you can create one by providing both a getter and a setter:
@@ -254,6 +274,8 @@ computed: {
   }
   ```
 
+  [Back to Top ⬆️](#vuejs-fundamentals)
+
   ### Getters should be side-effect free
   Don't make async requests or mutate the DOM inside a computed getter! Think of a computed property as declaratively describing how to derive a value based on other values - its only responsibility should be computing and returning that value. Later in the guide we will discuss how we can perform side effects in reaction to state changes with watchers.
 
@@ -265,6 +287,9 @@ computed: {
   ```
   <div :class="{ active: isActive }"></div>
   ```
+
+  [Back to Top ⬆️](#vuejs-fundamentals)
+
   ### Binding to Arrays
   We can bind :class to an array to apply a list of classes:
   ```
@@ -287,6 +312,8 @@ The directive v-if is used to conditionally render a block. The block will only 
 <h1 v-if='awesome'>Vue is awesome</h1>
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ### v-if on `<template>`
 Because v-if is a directive, it has to be attached to a single element. But what if we want to toggle more than one element? In this case we can use v-if on a `<template>` element, which serves as an invisible wrapper.
 
@@ -304,6 +331,8 @@ v-if is also lazy: if the condition is false on initial render, it will not do a
 In comparison, v-show is much simpler - the element is always rendered regardless of initial condition, with CSS-based toggling.
 
 Generally speaking, v-if has higher toggle costs while v-show has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ### v-if with v-for
 When v-if and v-for are both used on the same element, v-if will be evaluated first.
@@ -358,6 +387,8 @@ Mutation methods, as the name suggests, mutate the original array they are calle
 this.items = this.items.filter((item) => item.message.match(/Foo/))
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Event Handling
 We can use the v-on directive, which we typically shorten to the @ symbol, to listen to DOM events and run some JavaScript when they're triggered. The usage would be v-on:click="handler" or with the shortcut, @click="handler".
 
@@ -401,6 +432,8 @@ methods: {
 ```
 
 Reference: https://vuejs.org/guide/essentials/event-handling.html
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Event Modifiers
 It is a very common need to call event.preventDefault() or event.stopPropagation() inside event handlers. We can easily DOM event into a method and access it using $event, it would be better if the methods can be purely about data logic rather than having to deal with DOM event details.
@@ -490,6 +523,8 @@ If you want whitespace from user input to be trimmed automatically, you can add 
 ```
 <input v-model.trim="msg" />
 ```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Lifecycle Hooks
 Each vue coponent instance goes through a series of intialization steps while its created. For example its needs to 
@@ -641,6 +676,8 @@ new Vue ({
   })
 ```
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Watchers
 Computed properties allow us to declaratively compute derived values. However, there are cases where we need to perform "side effects" in reaction to state changes - for example, mutating the DOM, or changing another piece of state based on the result of an async operation.
 
@@ -719,6 +756,8 @@ export default {
 ```
 The initial execution of the handler function will happen just before the created hook. Vue will have already processed the data, computed, and methods options, so those properties will be available on the first invocation.
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## Template Refs
 While Vue's declarative rendering model abstracts away most of the direct DOM operations for you, there may still be cases where we need direct access to the underlying DOM elements. To achieve this, we can use the special ref attribute.
 It allows us to obtain a direct reference to a specific DOM element or child component instance after it's mounted. 
@@ -736,6 +775,8 @@ export default {
 </template>
 ```
 Note that you can only access the ref after the component is mounted. If you try to access $refs.input in a template expression, it will be null on the first render. This is because the element doesn't exist until after the first render!
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Components Basics
 Components allow us to split the UI into independent and reusable pieces, and think about each piece in isolation. It's common for an app to be organized into a tree of nested components:
@@ -782,6 +823,8 @@ export default {
 
 ---
 
+[Back to Top ⬆️](#vuejs-fundamentals)
+
 ## v-slot
 slots are a way to pass HTML from a parent component to a child component in Vue. js. This allows us to create reusable components that can be customized according to the needs of the individual developer.
 ```
@@ -802,6 +845,8 @@ Now you can insert dynamic content as below,
 ```
 
 Refernce: https://vuejs.org/api/built-in-directives.html#v-slot
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Passsing Props (Passing data from parent to child)
 If we are building a blog, we will likely need a component representing a blog post. We want all the blog posts to share the same visual layout, but with different content. Such a component won't be useful unless you can pass data to it, such as the title and content of the specific post we want to display. That's where props come in.
@@ -825,6 +870,8 @@ When a value is passed to a prop attribute, it becomes a property on that compon
 <BlogPost title="Blogging with Vue" />
 <BlogPost title="Why Vue is so fun" />
 ```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Listening to Events (communicating back up to the parent)
 As we develop our <BlogPost> component, some features may require communicating back up to the parent. For example, we may decide to include an accessibility feature to enlarge the text of blog posts, while leaving the rest of the page at its default size.
@@ -863,6 +910,8 @@ Then the child component can emit an event on itself by calling the built-in $em
 </template>
 ```
 Thanks to the @enlarge-text="postFontSize += 0.1" listener, the parent will receive the event and update the value of postFontSize.
+
+[Back to Top ⬆️](#vuejs-fundamentals)
 
 ## Vuex and State Management
 Reference: https://github.com/sjMalik/vuex-basics/tree/master#vuex-basics
@@ -966,4 +1015,67 @@ const router = new VueRouter({
 });
 
 export default router;
+```
+
+[Back to Top ⬆️](#vuejs-fundamentals)
+
+## Scaffold a Vue Single Page Application
+`npm init vue@latest`
+
+### What is babel config
+Its the configuration to convert to comfortable version support to allow in different browser. Compaitibility conversion
+
+## What is interpolation
+```
+<template>
+  <h1>Email {{email}}</h1>
+  <h1>Email {{1 == 1}}</h1>       // true
+  <h2>Fav Num {{favnum}}</h2>     // 7
+  <h2>Fav Num {{favnum = 7}}</h2> // 7
+</template>
+
+<script>
+  export default {
+    name: 'Interpolation',
+    data() {
+      return {
+        email: 'surajit94malik@gmail.com'
+        favnum: 6
+      }
+    }
+  }
+</script>
+```
+
+## Two way binding
+`v-model` - You can change state from both View and Model
+
+## v-slot
+`Parent.vue`
+```
+<template>
+    <h1>Solts in vue js</h1>
+    <Child><h2>Show in v-slot</h2></Child>
+    <Child><a href="https://github.com/sjMalik/vuejs-fundamentals" target="_blank">Click Me</a></Child>
+</template>
+
+import Child from './Child.vue';
+<script>
+export default {
+    name: 'Parent'
+}
+</script>
+```
+
+`Child.vue`
+```
+<template>
+    <slot></slot>
+</template>
+
+<script>
+export default {
+    name: 'Child'
+}
+</script>
 ```
